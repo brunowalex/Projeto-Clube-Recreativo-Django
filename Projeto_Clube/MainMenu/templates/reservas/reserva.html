@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} Visualizar {% endblock%}
+
+{% block content%}
+<div class="offset-1 col-10 list-div">
+    <h1>Informações de Cliente</h1>
+    <div  class="body-color-background">
+        <table class="table table-borderless table-responsive-lg">
+            <thead>
+            <tr>
+                <th scope="col">Foto</th>
+                <th scope="col">LOCAL</th>
+                <th scope="col">DATA</th>
+                <th scope="col">HORARIO</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% load static %}
+                    {% if reserva.id %}
+                    <th scope="row"><img src="{{ URL_ROOT }}{{ reserva.idCliente.idPessoa.foto.url }}" height="200vh" /> </th>
+                    {% else %}
+                        Imagem não cadastrada
+                    {% endif %}
+                    <td>{{reserva.local}}</td>
+                    <td>{{reserva.data}}</td>
+                    <td>{{reserva.hora}}</td>
+                </tr>                
+            </tbody>
+        </table>
+        <div class="voltar-div">
+            <a href="/reservas/"><i class="fas fa-chevron-left"></i>Voltar</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

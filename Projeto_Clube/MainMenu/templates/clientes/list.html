@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista de Clientes {% endblock%}
+
+{% block content%}
+<div class="offset-1 col-10 list-div">
+    <h1>Lista de Clientes</h1>
+    <div class="col-8 search-div">
+        <form method="GET" id="search-form">
+            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o codigo da pessoa para buscar">
+            <!-- Botão de busca Lupa
+                <i class="fas fa-search" id="search-btn"></i>
+            -->
+        </form>
+    </div>
+    <a id="add-link" href="/clientes/novocliente/">
+        <div class="add-div">
+            <i class="fas fa-plus"></i>Add
+        </div>
+    </a>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div  class="body-color-background">
+        <table class="table table-borderless table-responsive-lg">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Plano</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <th scope="row">{{cliente.id}}</th>
+                    <td>{{cliente.idPessoa}}</td>
+                    <td>{{cliente.categoria}}</td>
+                    <td>{{cliente.plano}}</td>
+                    <td>{{cliente.status}}</td>
+                    <td>                        
+                        <span><a href="/clientes/{{cliente.id}}"><i class="far fa-file-alt"></i></a></span>
+                        <span><a href="/clientes/edit/{{cliente.id}}" class="delete-btn"><i class="fas fa-edit"></i></a></span>
+                        <span><a href="/clientes/delete/{{cliente.id}}"><i class="fas fa-trash"></i></a></span>
+                    </td>
+                </tr>      
+                {% empty %}
+                    <li class="list-group-item">Sem itens na lista</li>
+                {% endfor %}
+            </tbody>
+          </table>
+          <div class="pagination">
+              <span class="step-links">
+                  {% if clientes.has_previous %}
+                      <a href="?page={{ clientes.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+                  {% endif %}
+                
+                  {% if clientes.paginator.num_pages %}
+                  <span class="current">
+                      {{ clientes.number }} de {{ clientes.paginator.num_pages}}
+                  </span>
+                  {% endif %}
+
+                  {% if clientes.has_next %}
+                      <a href="?page={{ clientes.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+                  {% endif %}
+              </span>
+          </div>      
+    </div>
+</div>
+
+{% endblock %}

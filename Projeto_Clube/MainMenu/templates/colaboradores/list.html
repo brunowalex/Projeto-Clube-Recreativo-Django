@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %} Lista de Colaboradores {% endblock%}
+
+{% block content%}
+<div class="offset-1 col-10 list-div">
+    <h1>Lista de Colaboradores</h1>
+    <div class="col-8 search-div">
+        <form method="GET" id="search-form">
+            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o codigo do colaborador para buscar">
+            <!-- Botão de busca Lupa
+                <i class="fas fa-search" id="search-btn"></i>
+            -->
+        </form>
+    </div>
+    <a id="add-link" href="/colaboradores/novocolaborador/">
+        <div class="add-div">
+            <i class="fas fa-plus"></i>Add
+        </div>
+    </a>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div  class="body-color-background">
+        <table class="table table-borderless table-responsive-lg">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Tipo Permissão</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for colaborador in colaboradores %}
+                <tr>
+                    <th scope="row">{{colaborador.id}}</th>
+                    <td>{{colaborador.idPessoa}}</td>
+                    <td>{{colaborador.permissao}}</td>
+                    <td>                        
+                        <span><a href="/colaboradores/{{colaborador.id}}"><i class="far fa-file-alt"></i></a></span>                        <!--/reservas/{{reserva.id}}-->
+                        <span><a href="/colaboradores/edit/{{colaborador.id}}" class="delete-btn"><i class="fas fa-edit"></i></a></span>         <!--/reservas/edit/{{reserva.id}}-->
+                        <span><a href="/colaboradores/delete/{{colaborador.id}}"><i class="fas fa-trash"></i></a></span>                           <!--/reservas/delete/{{reserva.id}}-->
+                    </td>
+                </tr>      
+                {% empty %}
+                    <li class="list-group-item">Sem itens na lista</li>
+                {% endfor %}
+            </tbody>
+          </table>
+          <div class="pagination">
+              <span class="step-links">
+                  {% if colaboradores.has_previous %}
+                      <a href="?page={{ colaboradores.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+                  {% endif %}
+                
+                  {% if colaboradores.paginator.num_pages %}
+                  <span class="current">
+                      {{ colaboradores.number }} de {{ colaboradores.paginator.num_pages}}
+                  </span>
+                  {% endif %}
+
+                  {% if colaboradores.has_next %}
+                      <a href="?page={{ colaboradores.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+                  {% endif %}
+              </span>
+          </div>      
+    </div>
+</div>
+
+{% endblock %}
