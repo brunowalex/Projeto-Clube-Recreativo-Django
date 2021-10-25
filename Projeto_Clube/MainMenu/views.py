@@ -247,7 +247,7 @@ def deletarColaborador(request, id):
 
     messages.info(request, 'Colaborador deletado com sucesso.')
 
-    return redirect('/colaborador/')
+    return redirect('/colaboradores/')
 
 @login_required
 def deletarReserva(request, id):
