@@ -12,6 +12,9 @@ class Pessoa(models.Model):
     foto = models.FileField()
     email = models.EmailField()  
     
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     def __str__ (self):
         return self.nome  
 
@@ -77,7 +80,7 @@ class Reserva(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__ (self):
-        return self.local
+        return self.idCliente
 
 #Colaboradores
 

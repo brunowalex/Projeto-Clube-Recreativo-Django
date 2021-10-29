@@ -27,12 +27,14 @@
                 <div class="card-body p-5 text-center">
       
                 <h3 class="mb-5">Login</h3>
-
+                                
                 <form method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ next }}">
 
-                    {{ form }}
+                    <input class="form-control" type="text" id="form.username" name="username" placeholder="Insira o usuário">
+                    <br>
+                    <input class="form-control" type="password" id="form.password" name="password" placeholder="Insira a senha">
 
                     <hr class="my-4">
 

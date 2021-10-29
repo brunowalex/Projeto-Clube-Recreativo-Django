@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Adicionar {% endblock%}
+{% block title %} Cadastrar {% endblock%}
 
 {% block content%}
 <div class="offset-1 col-10 list-div">
@@ -8,8 +8,36 @@
     <div  class="body-color-background list-div-addpessoa">
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-success" value="Cadastrar">
+
+            <div class="container">
+                <div class="row">
+                  <div class="col-sm">
+
+                    Nome
+                    <input type="text" class="form-control form-data-hora-addreserva" id="form.nome" name="nome" placeholder="Insira o nome">
+                    RG
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.rg" name="rg" placeholder="Insira o rg">
+                    CPF
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.cpf" name="cpf" placeholder="Insira o cpf">
+                  </div>
+                  <div class="col-sm">
+                    Telefone
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.telefone" name="telefone" placeholder="Insira o telefone">
+                    Telefone Celular
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.telefonecelular" name="telefonecelular" placeholder="Insira o celular">
+                    Data de Nascimento
+                    <input type="date" class="form-control form-data-hora-addreserva" id="form.datanascimento" name="datanascimento">
+                  </div>
+                  <div class="col-sm">
+                    E-mail
+                    <input type="email" class="form-control form-data-hora-addreserva" id="form.email" name="email" placeholder="Insira o e-mail">
+                    Foto
+                    <input type="file" class="form-control form-data-hora-addreserva" id="form.foto" name="foto" placeholder="Insira a foto">
+              
+                    <input type="submit" class="btn btn-success" value="Cadastrar">                    
+                  </div>
+                </div>
+              </div>
         </form>
     </div>
 </div>

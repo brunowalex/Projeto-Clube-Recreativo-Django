@@ -408,5 +408,10 @@ ul.messages li {
 }
 
 
-/* Calendario */
+/* Reserva */
 
+.form-data-hora-addreserva {
+    margin-top: 1em;
+    width: 15vw;
+    margin-bottom: 1em;
+}

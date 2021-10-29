@@ -13,7 +13,7 @@
             -->
         </form>
     </div>
-    <a id="add-link" href="#">
+    <a id="add-link" href="#"> <!--/reservas/novareserva/-->
         <div class="add-div">
             <i class="fas fa-plus"></i>Add
         </div>
@@ -43,8 +43,8 @@
                     <th scope="row">{{reserva.id}}</th>
                     <td>{{reserva.idCliente.idPessoa.nome}}</td>
                     <td>{{reserva.local}}</td>
-                    <td>{{reserva.datalocal}}</td>
-                    <td>{{reserva.datahorario}}</td>
+                    <td>{{reserva.datareserva}}</td>
+                    <td>{{reserva.horareserva}}</td>
                     <td>                        
                         <span><a href="/reservas/{{reserva.id}}"><i class="far fa-file-alt"></i></a></span>                        <!--/reservas/{{reserva.id}}-->
                         <span><a href="#" class="delete-btn"><i class="fas fa-edit"></i></a></span>         <!--/reservas/edit/{{reserva.id}}-->

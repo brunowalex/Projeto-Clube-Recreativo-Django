@@ -12,7 +12,7 @@ class PessoaForm(forms.ModelForm):
 
     class Meta:
         model = Pessoa
-        fields = ('nome', 'rg', 'cpf', 'telefone', 'telefonecelular', 'datanascimento', 'foto', 'email')
+        fields = ('nome', 'rg', 'cpf', 'telefone', 'telefonecelular', 'datanascimento', 'email', 'foto')
 
 class ReservaForm(forms.ModelForm):
 

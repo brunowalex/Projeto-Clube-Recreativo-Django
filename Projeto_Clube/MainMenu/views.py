@@ -105,7 +105,7 @@ def novaPessoa(request):
             
             messages.info(request, 'Nova pessoa cadastrada com sucesso.')
 
-            return redirect('/cliente/clientes/')
+            return redirect('/')
     else:
         form = PessoaForm()
         return render(request, 'addpessoa.html', {'form': form})
