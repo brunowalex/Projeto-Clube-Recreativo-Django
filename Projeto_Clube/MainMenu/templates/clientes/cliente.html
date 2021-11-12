@@ -5,44 +5,49 @@
 {% block content%}
 <div class="offset-1 col-10 list-div">
     <h1>Informações de Cliente</h1>
-    <div  class="body-color-background">
-        <table class="table table-borderless table-responsive-lg">
-            <thead>
-            <tr>
-                <th scope="col">Foto</th>
-                <th scope="col">Nome</th>
-                <th scope="col">RG</th>
-                <th scope="col">CPF</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% load static %}
-                    {% if cliente.idPessoa.foto %}
-                    <th scope="row"><img src="{{ URL_ROOT }}{{ cliente.idPessoa.foto.url }}" height="200vh" /> </th>
-                    {% else %}
-                        Imagem não cadastrada
-                    {% endif %}
-                    <td>{{cliente.idPessoa.nome}}</td>
-                    <td>{{cliente.idPessoa.rg}}</td>
-                    <td>{{cliente.idPessoa.cpf}}</td>
-                </tr>
-                <tr>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">Celular</th>
-                    <th scope="col">Data Nascimento</th>
-                    <th scope="col">Email</th>
-                </tr>
-                <tr>
-                    <td>{{cliente.idPessoa.telefone}}</td>
-                    <td>{{cliente.idPessoa.telefonecelular}}</td>
-                    <td>{{cliente.idPessoa.datanascimento}}</td>
-                    <td>{{cliente.idPessoa.email}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="voltar-div">
-            <a href="/clientes/"><i class="fas fa-chevron-left"></i>Voltar</a>
+    <div class="row">
+        <div class="col">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="body-color-background table-responsive-lg">
+                <h5 class="card-title" style="text-align: center;">{{cliente.idPessoa.nome}}</h5>
+                <hr>
+                <p class="card-text">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            {% if cliente.id %}
+                                <img src="{{ URL_ROOT }}{{ cliente.idPessoa.foto.url }}" class="img-thumbnail"/>
+                            {% else %}
+                                Imagem não cadastrada
+                            {% endif %}
+                        </div>
+                        <div class="col-3">
+                            <i class="far fa-id-card"></i> <b>RG:</b> {{ cliente.idPessoa.rg }}
+                                <hr>
+                            <i class="fas fa-id-card"></i> <b>CPF:</b> {{ cliente.idPessoa.cpf }}
+                                <hr>
+                            <i class="fas fa-phone"></i> <b>Telefone Fixo:</b> {{ cliente.idPessoa.telefone }}
+                                <hr>
+                        </div>
+                        <div class="col">
+                            <i class="fas fa-mobile"></i> <b>Telefone Celular:</b> {{ cliente.idPessoa.telefonecelular }}
+                                <hr>
+                            <i class="far fa-calendar"></i> <b>Data de Nascimento:</b> {{ cliente.idPessoa.datanascimento }}
+                                <hr>
+                            <i class="fas fa-at"></i> <b>E-mail:</b> {{ cliente.idPessoa.email }}
+                                <hr>
+                        </div>
+                    </div>
+                </p>   
+                <div class="voltar-div">
+                    <a href="/clientes/"><i class="fas fa-chevron-left"></i>Voltar</a>
+                </div>                     
+            </div>
         </div>
     </div>
 </div>

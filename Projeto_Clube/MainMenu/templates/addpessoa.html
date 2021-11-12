@@ -6,7 +6,7 @@
 <div class="offset-1 col-10 list-div">
     <h1>Cadastre a nova pessoa: </h1>
     <div  class="body-color-background list-div-addpessoa">
-        <form method="POST">
+        <form method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="container">
@@ -14,30 +14,34 @@
                   <div class="col-sm">
 
                     Nome
-                    <input type="text" class="form-control form-data-hora-addreserva" id="form.nome" name="nome" placeholder="Insira o nome">
+                    <input type="text" class="form-control form-data-hora-addreserva" id="form.nome" name="nome" placeholder="Insira o nome" required>
                     RG
-                    <input type="number" class="form-control form-data-hora-addreserva" id="form.rg" name="rg" placeholder="Insira o rg">
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.rg" name="rg" placeholder="Insira o rg" required>
                     CPF
-                    <input type="number" class="form-control form-data-hora-addreserva" id="form.cpf" name="cpf" placeholder="Insira o cpf">
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.cpf" name="cpf" placeholder="Insira o cpf" required>
                   </div>
+
                   <div class="col-sm">
                     Telefone
-                    <input type="number" class="form-control form-data-hora-addreserva" id="form.telefone" name="telefone" placeholder="Insira o telefone">
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.telefone" name="telefone" placeholder="Insira o telefone" required>
                     Telefone Celular
-                    <input type="number" class="form-control form-data-hora-addreserva" id="form.telefonecelular" name="telefonecelular" placeholder="Insira o celular">
+                    <input type="number" class="form-control form-data-hora-addreserva" id="form.telefonecelular" name="telefonecelular" placeholder="Insira o celular" required>
                     Data de Nascimento
-                    <input type="date" class="form-control form-data-hora-addreserva" id="form.datanascimento" name="datanascimento">
+                    <input type="date" class="form-control form-data-hora-addreserva" id="form.datanascimento" name="datanascimento" required>
                   </div>
+
                   <div class="col-sm">
                     E-mail
-                    <input type="email" class="form-control form-data-hora-addreserva" id="form.email" name="email" placeholder="Insira o e-mail">
+                    <input type="email" class="form-control form-data-hora-addreserva" id="form.email" name="email" placeholder="Insira o e-mail" required>
                     Foto
-                    <input type="file" class="form-control form-data-hora-addreserva" id="form.foto" name="foto" placeholder="Insira a foto">
-              
-                    <input type="submit" class="btn btn-success" value="Cadastrar">                    
+                    <input type="file" class="form-control form-data-hora-addreserva" id="form.foto" name="foto" placeholder="Insira a foto" required>
+
+                    <input type="submit" class="btn btn-success" value="Cadastrar">
+                    <button type="button" class="btn btn-danger"><a href="/">Cancelar</a></button>    
                   </div>
-                </div>
-              </div>
+
+                </div> 
+            </div>
         </form>
     </div>
 </div>

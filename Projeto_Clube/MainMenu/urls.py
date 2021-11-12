@@ -14,10 +14,10 @@ urlpatterns = [
     path('clientes/novocliente/', views.novoCliente, name="novo-cliente"),
     #açoes com reservas
     path('reservas/', views.reservaList, name='reserva-list'),
+    path('reservas/<int:id>', views.reservaView, name="reserva-view"),
     path('reservas/novareserva/', views.novaReserva, name="nova-reserva"),
     path('reservas/edit/<int:id>', views.editarReserva, name="editar-reserva"),
     path('reservas/delete/<int:id>', views.deletarReserva, name="deletar-reserva"),
-    path('reservas/<int:id>', views.reservaView, name="reserva-view"),
     #açoes com colaboradores
     path('colaboradores/', views.colaboradoresList, name='colaboradores-list'),
     path('colaboradores/<int:id>', views.colaboradorView, name="colaborador-view"),

@@ -7,13 +7,13 @@
     <h1>Lista de Reservas</h1>
     <div class="col-8 search-div">
         <form method="GET" id="search-form">
-            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o codigo da reserva para buscar">
+            <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome do cliente que fez a reserva para buscar">
             <!-- Botão de busca Lupa
                 <i class="fas fa-search" id="search-btn"></i>
             -->
         </form>
     </div>
-    <a id="add-link" href="#"> <!--/reservas/novareserva/-->
+    <a id="add-link" href="/reservas/novareserva/"> <!--/reservas/novareserva/-->
         <div class="add-div">
             <i class="fas fa-plus"></i>Add
         </div>
@@ -28,14 +28,14 @@
     <div  class="body-color-background">
         <table class="table table-borderless table-responsive-lg">
             <thead>
-              <tr>
+            <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Local</th>
                 <th scope="col">Data da Reserva</th>
                 <th scope="col">Horario da Reserva</th>
                 <th scope="col">Ações</th>
-              </tr>
+            </tr>
             </thead>
             <tbody>
                 {% for reserva in reservas %}
@@ -44,35 +44,35 @@
                     <td>{{reserva.idCliente.idPessoa.nome}}</td>
                     <td>{{reserva.local}}</td>
                     <td>{{reserva.datareserva}}</td>
-                    <td>{{reserva.horareserva}}</td>
+                    <td>{{reserva.horareserva}} às {{reserva.horareserva_fim}}</td>
                     <td>                        
                         <span><a href="/reservas/{{reserva.id}}"><i class="far fa-file-alt"></i></a></span>                        <!--/reservas/{{reserva.id}}-->
-                        <span><a href="#" class="delete-btn"><i class="fas fa-edit"></i></a></span>         <!--/reservas/edit/{{reserva.id}}-->
-                        <span><a href="#"><i class="fas fa-trash"></i></a></span>                           <!--/reservas/delete/{{reserva.id}}-->
+                        <span><a href="/reservas/edit/{{reserva.id}}" class="delete-btn"><i class="fas fa-edit"></i></a></span>         <!--/reservas/edit/{{reserva.id}}-->
+                        <span><a href="/reservas/delete/{{reserva.id}}"><i class="fas fa-trash"></i></a></span>                           <!--/reservas/delete/{{reserva.id}}-->
                     </td>
                 </tr>      
                 {% empty %}
                     <li class="list-group-item">Sem itens na lista</li>
                 {% endfor %}
             </tbody>
-          </table>
-          <div class="pagination">
-              <span class="step-links">
-                  {% if reservas.has_previous %}
-                      <a href="?page={{ reservas.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
-                  {% endif %}
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if reservas.has_previous %}
+                    <a href="?page={{ reservas.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+                {% endif %}
                 
-                  {% if reservas.paginator.num_pages %}
-                  <span class="current">
-                      {{ reservas.number }} de {{ reservas.paginator.num_pages}}
-                  </span>
-                  {% endif %}
+                {% if reservas.paginator.num_pages %}
+                <span class="current">
+                    {{ reservas.number }} de {{ reservas.paginator.num_pages}}
+                </span>
+                {% endif %}
 
-                  {% if reservas.has_next %}
-                      <a href="?page={{ reservas.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
-                  {% endif %}
-              </span>
-          </div>      
+                {% if reservas.has_next %}
+                    <a href="?page={{ reservas.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+                {% endif %}
+            </span>
+        </div>      
     </div>
 </div>
 

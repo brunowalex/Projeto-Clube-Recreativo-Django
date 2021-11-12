@@ -12,13 +12,28 @@ class PessoaForm(forms.ModelForm):
 
     class Meta:
         model = Pessoa
-        fields = ('nome', 'rg', 'cpf', 'telefone', 'telefonecelular', 'datanascimento', 'email', 'foto')
+        fields = [
+            'nome',
+            'rg',
+            'cpf',
+            'rg',
+            'telefone',
+            'telefonecelular', 'datanascimento',
+            'email',
+            'foto',
+        ]
 
 class ReservaForm(forms.ModelForm):
 
     class Meta:
         model = Reserva
-        fields = ('idCliente', 'local', 'datareserva', 'horareserva')
+        fields = [
+            'idCliente',
+            'local',
+            'datareserva',
+            'horareserva',
+            'horareserva_fim',
+        ]
 
 class ColaboradorForm(forms.ModelForm):
 

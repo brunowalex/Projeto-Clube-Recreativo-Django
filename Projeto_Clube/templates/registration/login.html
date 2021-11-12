@@ -36,6 +36,11 @@
                     <br>
                     <input class="form-control" type="password" id="form.password" name="password" placeholder="Insira a senha">
 
+                        
+                    {% if form.errors %}
+                      <p style="margin-top: 10px;">Seu nome de usuário e /ou senha não estão corretos. Por favor, tente novamente.</p>
+                    {% endif %}
+
                     <hr class="my-4">
 
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>

@@ -25,11 +25,12 @@
         <nav id="sidebar">
             <div class="sidebar-header">
                 <figure>
-                    <img style="width: 100%; height: 100%;" src="https://i.imgur.com/2Is4jSj.png" alt="Logotipo">
-                  </figure>
+                    <img style="height: 12em;" src="https://i.imgur.com/2Is4jSj.png" alt="Logotipo">
+                </figure>
             </div>
-
+            
             <ul class="list-unstyled components">
+             
                 <li class="active">
                     <a href="/">
                         <i class="fas fa-home"></i>
@@ -83,28 +84,104 @@
                         <i class="fas fa-align-left"></i>
                         <span></span>
                     </button>
-                    <a id="add-link" href="#"> <!--/novapessoa/-->
+                                      
+                    <a id="add-link" href="/novapessoa/"> <!--/novapessoa/-->
                         <div class="btn btn-info">
                             <i class="fas fa-plus"></i>Cadastrar nova pessoa
                         </div>
                     </a>
                 </div>
-            </nav>
+            </nav>           
 
             {% block content %}
             
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+            <div class="offset-1 col-10 list-div">
 
-            <h1>Calendário e ações em breve.</h1>
+                <h1>Seja Bem-Vindo, {{user.username}}.</h1>
+                <br>
 
-            {% endblock%}
+                <h3>Reservas do clube</h3>
+                <hr>
+                    <div class="row">
+                        <div class="col">
+                            {% if messages %}
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                    
+                            {% for reserva in reservas %}
+                                <div class="body-color-background">
+                                    <h5 class="card-title" style="text-align: center;">{{reserva.idCliente.idPessoa.nome}}</h5>
+                                    <hr>
+                                    <p class="card-text">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                {% if reserva.id %}
+                                                    <img src="{{ URL_ROOT }}{{ reserva.idCliente.idPessoa.foto.url }}" class="img-thumbnail"/>
+                                                {% else %}
+                                                    Imagem não cadastrada
+                                                {% endif %}
+                                            </div>
+                                            <div class="col">
+                                                <i class="fas fa-map-marker-alt"></i> <b>Local:</b> {{ reserva.local }}
+                                                    <hr>
+                                                <i class="fas fa-calendar-day"></i> <b>Data:</b> {{ reserva.datareserva }}
+                                                    <hr>
+                                                <i class="fas fa-clock"></i> <b>Horario:</b> {{ reserva.horareserva }} - {{ reserva.horareserva_fim }}
+                                                    <hr>
+                                            </div>
+                                        </div>
+                                    </p>                        
+                                </div>
 
+                                <br>
+
+                            {% empty %}
+                                <li class="list-group-item">Não há reservas.</li>
+
+                            {% endfor %}
+
+                            <div class="pagination">
+                                <span class="step-links">
+                                    {% if reservas.has_previous %}
+                                        <a href="?page={{ reservas.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+                                    {% endif %}
+                                    
+                                    {% if reservas.paginator.num_pages %}
+                                    <span class="current">
+                                        {{ reservas.number }} de {{ reservas.paginator.num_pages}}
+                                    </span>
+                                    {% endif %}
+                    
+                                    {% if reservas.has_next %}
+                                        <a href="?page={{ reservas.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col col-lg-3">
+                            
+                            <div  class="body-color-background">
+                                <div class="search-div">
+                                    <h1>Filtro de Reservas</h1>
+                                    <hr>
+                                    <form method="GET" id="search-form">
+                                        <h6>*escolha a data</h6>
+                                        <input class="form-control" type="date" id="search" name="search" required>
+                                        <button class="btn btn-info button-search-home" type="subimit">Buscar reserva do cliente</button>
+                                            <hr>                                   
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+                {% endblock%}
+
+            </div>
         </div>
     </div>
     

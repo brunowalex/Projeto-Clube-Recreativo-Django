@@ -4,33 +4,54 @@
 
 {% block content%}
 <div class="offset-1 col-10 list-div">
-    <h1>Informações de Cliente</h1>
-    <div  class="body-color-background">
-        <table class="table table-borderless table-responsive-lg">
-            <thead>
-            <tr>
-                <th scope="col">Foto</th>
-                <th scope="col">LOCAL</th>
-                <th scope="col">DATA</th>
-                <th scope="col">HORARIO</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% load static %}
-                    {% if reserva.id %}
-                    <th scope="row"><img src="{{ URL_ROOT }}{{ reserva.idCliente.idPessoa.foto.url }}" height="200vh" /> </th>
-                    {% else %}
-                        Imagem não cadastrada
-                    {% endif %}
-                    <td>{{reserva.local}}</td>
-                    <td>{{reserva.datareserva}}</td>
-                    <td>{{reserva.horareserva}}</td>
-                </tr>                
-            </tbody>
-        </table>
-        <div class="voltar-div">
-            <a href="/reservas/"><i class="fas fa-chevron-left"></i>Voltar</a>
+    <h1>Informações da Reserva</h1>
+    <div class="row">
+        <div class="col">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="body-color-background">
+                <h5 class="card-title" style="text-align: center;">{{reserva.idCliente.idPessoa.nome}}</h5>
+                <hr>
+                <p class="card-text">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            {% if reserva.id %}
+                                <img src="{{ URL_ROOT }}{{ reserva.idCliente.idPessoa.foto.url }}" class="img-thumbnail"/>
+                            {% else %}
+                                Imagem não cadastrada
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <h5 class="card-title" style="text-align: center;">Informações da reserva</h5>
+                                <hr>
+                            <i class="fas fa-map-marker-alt"></i> <b>Local:</b> {{ reserva.local }}
+                                <hr>
+                            <i class="fas fa-calendar-day"></i> <b>Data:</b> {{ reserva.datareserva }}
+                                <hr>
+                            <i class="fas fa-clock"></i> <b>Horario:</b> {{ reserva.horareserva }} - {{ reserva.horareserva_fim }}
+                                <hr>
+                        </div>
+                        <div class="col">
+                            <h5 class="card-title" style="text-align: center;">Informações da pessoa</h5>
+                                <hr>
+                            <i class="fas fa-info-circle"></i> <b>Categoria:</b> {{ reserva.idCliente.categoria }}
+                                <hr>
+                            <i class="fas fa-info-circle"></i> <b>Plano:</b> {{ reserva.idCliente.plano }}
+                                <hr>
+                            <i class="fas fa-info-circle"></i> <b>Status:</b> {{ reserva.idCliente.status }}
+                                <hr>
+                        </div>
+                    </div>
+                </p>   
+                <div class="voltar-div">
+                    <a href="/reservas/"><i class="fas fa-chevron-left"></i>Voltar</a>
+                </div>                     
+            </div>
         </div>
     </div>
 </div>

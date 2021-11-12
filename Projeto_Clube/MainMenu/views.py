@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .forms import ClienteForm, PessoaForm, ReservaForm, ColaboradorForm
 from django.contrib.auth.decorators import login_required
 
@@ -9,7 +9,23 @@ from django.core.paginator import Paginator
 
 @login_required
 def mainmenu(request):
-    return render(request, 'base.html')
+    search = request.GET.get('search')
+
+    if search:
+
+        reservas = Reserva.objects.filter(datareserva=search)
+
+    else:
+        
+        reserva_list = Reserva.objects.all().order_by('datareserva')
+
+        paginator = Paginator(reserva_list, 2)
+
+        page = request.GET.get('page')
+
+        reservas = paginator.get_page(page)
+
+    return render(request, 'base.html', {'reservas': reservas})
 
 # List
 
@@ -20,13 +36,13 @@ def clientesList(request):
 
     if search:
 
-        clientes = Cliente.objects.filter(id__icontains=search)
+        clientes = Cliente.objects.filter(idPessoa__nome__contains=search)
 
     else:
 
         clientes_list = Cliente.objects.all().order_by('id')
 
-        paginator = Paginator(clientes_list, 5)
+        paginator = Paginator(clientes_list, 7)
 
         page = request.GET.get('page')
 
@@ -42,13 +58,13 @@ def reservaList(request):
 
     if search:
 
-        reservas = Reserva.objects.filter(id__icontains=search)
+        reservas = Reserva.objects.filter(idCliente__idPessoa__nome__contains=search)
 
     else:
 
         reserva_list = Reserva.objects.all().order_by('id')
 
-        paginator = Paginator(reserva_list, 5)
+        paginator = Paginator(reserva_list, 7)
 
         page = request.GET.get('page')
 
@@ -62,13 +78,13 @@ def colaboradoresList(request):
 
     if search:
 
-        colaboradores = Colaborador.objects.filter(id__icontains=search)
+        colaboradores = Colaborador.objects.filter(idPessoa__nome__contains=search)
 
     else:
 
         colaborador_list = Colaborador.objects.all().order_by('id')
 
-        paginator = Paginator(colaborador_list, 5)
+        paginator = Paginator(colaborador_list, 7)
 
         page = request.GET.get('page')
 
@@ -98,11 +114,12 @@ def colaboradorView(request, id):
 @login_required
 def novaPessoa(request):
     if request.method == 'POST':
-        form = PessoaForm(request.POST)
+        form = PessoaForm(request.POST, request.FILES)
 
         if form.is_valid():
-            pessoa = form.save()
-            
+            pessoa = form.save(commit=False)
+            pessoa.save()
+            #mensagem sucesso
             messages.info(request, 'Nova pessoa cadastrada com sucesso.')
 
             return redirect('/')
@@ -130,8 +147,15 @@ def novaReserva(request):
     if request.method == 'POST':
         form = ReservaForm(request.POST)
 
+        search = request.GET.get('search')
+
+        if search:
+
+            reservas = Reserva.objects.filter(id__icontains=search)
+
         if form.is_valid():
-            reserva = form.save()
+            reserva = form.save(commit=False)
+            reserva.save()
             
             messages.info(request, 'Reserva cadastrada com sucesso.')
 
