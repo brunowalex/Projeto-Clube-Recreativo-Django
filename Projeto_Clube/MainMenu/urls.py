@@ -24,4 +24,10 @@ urlpatterns = [
     path('colaboradores/novocolaborador/', views.novoColaborador, name="novo-colaborador"),
     path('colaboradores/edit/<int:id>', views.editarColaborador, name="editar-colaborador"),
     path('colaboradores/delete/<int:id>', views.deletarColaborador, name="deletar-colaborador"),
+    #açoes com dependentes
+    path('dependentes/', views.dependenteList, name='dependente-list'),
+    path('dependentes/<int:id>', views.dependenteView, name="dependente-view"),    
+    path('dependentes/edit/<int:id>', views.editarDependente, name="editar-dependente"),
+    path('dependentes/delete/<int:id>', views.deletarDependente, name="deletar-dependente"),
+    path('dependentes/novodependente/', views.novoDependente, name="novo-dependente"),
 ]

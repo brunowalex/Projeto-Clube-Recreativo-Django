@@ -106,3 +106,21 @@ class Colaborador(models.Model):
 
     def __str__ (self):
         return str(self.idPessoa)
+    
+    
+#Dependentes
+
+class Dependente(models.Model):
+    
+    idCliente = models.ForeignKey(Pessoa, on_delete=models.CASCADE, verbose_name='Cliente')
+    nome = models.CharField(blank=False, null=False, verbose_name='Nome', max_length=200, help_text='max. 200 caracteres')
+    rg = models.IntegerField(blank=False, null=False, verbose_name='RG')
+    parentesco = models.CharField(blank=False, null=False, verbose_name='Parantesco', max_length=100, help_text='max. 100 caracteres')
+    datanascimento = models.DateField(blank=False, null=False, verbose_name="Data de Nascimento")
+    foto = models.FileField(blank=False, null=False, verbose_name="Foto")
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)    
+    
+    def __str__ (self):
+        return str(self.nome)

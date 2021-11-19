@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from .forms import ClienteForm, PessoaForm, ReservaForm, ColaboradorForm
+from .forms import ClienteForm, PessoaForm, ReservaForm, ColaboradorForm, DependenteForm
 from django.contrib.auth.decorators import login_required
 
-from .models import Cliente, Pessoa, Reserva, Colaborador
+from .models import Cliente, Dependente, Pessoa, Reserva, Colaborador, Dependente
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 @login_required
 def mainmenu(request):
@@ -17,7 +17,9 @@ def mainmenu(request):
 
     else:
         
-        reserva_list = Reserva.objects.all().order_by('datareserva')
+        now = timezone.now()   
+        
+        reserva_list = Reserva.objects.filter(datareserva__gte=now).order_by('datareserva')
 
         paginator = Paginator(reserva_list, 2)
 
@@ -50,6 +52,26 @@ def clientesList(request):
 
     return render(request, 'clientes/list.html', {'clientes': clientes})
 
+@login_required
+def dependenteList(request):
+
+    search = request.GET.get('search')
+
+    if search:
+
+        dependentes = Dependente.objects.filter(nome__contains=search)
+
+    else:
+
+        dependentes_list = Dependente.objects.all().order_by('id')
+
+        paginator = Paginator(dependentes_list, 7)
+
+        page = request.GET.get('page')
+
+        dependentes = paginator.get_page(page)
+
+    return render(request, 'dependentes/list.html', {'dependentes': dependentes})
 
 @login_required
 def reservaList(request):
@@ -61,6 +83,10 @@ def reservaList(request):
         reservas = Reserva.objects.filter(idCliente__idPessoa__nome__contains=search)
 
     else:
+        
+        # filto ordenado por data
+        # now = timezone.now()        
+        # reserva_list = Reserva.objects.filter(datareserva__gte=now).order_by('datareserva')
 
         reserva_list = Reserva.objects.all().order_by('id')
 
@@ -108,6 +134,11 @@ def reservaView(request, id):
 def colaboradorView(request, id):
     colaborador = get_object_or_404(Colaborador, pk=id)
     return render(request, 'colaboradores/colaborador.html', {'colaborador': colaborador})
+
+@login_required
+def dependenteView(request, id):
+    dependente = get_object_or_404(Dependente, pk=id)
+    return render(request, 'dependentes/dependentes.html', {'dependente': dependente})
 
 # Novo - Cadastrar
 
@@ -178,9 +209,9 @@ def novoColaborador(request):
     else:
         form = ColaboradorForm()
         return render(request, 'colaboradores/addcolaborador.html', {'form': form})
-
+    
 @login_required
-def novoCliente(request):
+def novoDependente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
 
@@ -191,8 +222,8 @@ def novoCliente(request):
 
             return redirect('/clientes/')
     else:
-        form = ClienteForm()
-        return render(request, 'clientes/addcliente.html', {'form': form})
+        form = DependenteForm()
+        return render(request, 'dependentes/adddependentes.html', {'form': form})
 
 # Editar
 
@@ -252,6 +283,25 @@ def editarReserva(request, id):
             return render(request, 'reservas/editarreserva.html', {'form': form})
     else:
         return render(request, 'reservas/editarreserva.html', {'form': form})
+    
+@login_required
+def editarDependente(request, id):
+    dependente = get_object_or_404(Dependente, pk=id)
+    form = DependenteForm(instance=dependente)
+
+    if(request.method == 'POST'):
+        form = DependenteForm(request.POST, instance=dependente)
+
+        if(form.is_valid()):
+            dependente.save()
+            
+            messages.info(request, 'Dependente editado com sucesso.')
+
+            return redirect('/dependentes/')
+        else:
+            return render(request, 'dependentes/editardependentes.html', {'form': form})
+    else:
+        return render(request, 'dependentes/editardependentes.html', {'form': form})
 
 # Deletar
 
@@ -281,3 +331,12 @@ def deletarReserva(request, id):
     messages.info(request, 'Reserva deletada com sucesso.')
 
     return redirect('/reservas/')
+
+@login_required
+def deletarDependente(request, id):
+    dependente = get_object_or_404(Dependente, pk=id)
+    dependente.delete()
+
+    messages.info(request, 'Dependente deletado com sucesso.')
+
+    return redirect('/dependentes/')

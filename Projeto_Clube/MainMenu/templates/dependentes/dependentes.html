@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} Visualizar {% endblock%}
+
+{% block content%}
+<div class="offset-1 col-10 list-div">
+    <h1>Informações de Dependentes</h1>
+    <div class="row">
+        <div class="col">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <div class="body-color-background table-responsive-lg">
+                <h5 class="card-title" style="text-align: center;">{{dependente.nome}}</h5>
+                <hr>
+                <p class="card-text">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            {% if dependente.id %}
+                                <img src="{{ URL_ROOT }}{{ dependente.foto.url }}" class="img-thumbnail"/>
+                            {% else %}
+                                Imagem não cadastrada
+                            {% endif %}
+                        </div>
+                        <div class="col-3">
+                            <i class="far fa-id-card"></i> <b>RG:</b> {{ dependente.rg }}
+                                <hr>
+                            <i class="fas fa-id-card"></i> <b>Parentesco:</b> {{ dependente.parentesco }}
+                                <hr>
+                        </div>
+                        <div class="col">
+                            <i class="far fa-calendar"></i> <b>Data de Nascimento:</b> {{ dependente.datanascimento }}
+                                <hr>
+                            <i class="fas fa-user"></i> <b>Cliente:</b> {{ dependente.idCliente }}
+                                <hr>
+                        </div>
+                    </div>
+                </p>   
+                <div class="voltar-div">
+                    <a href="/dependentes/"><i class="fas fa-chevron-left"></i>Voltar</a>
+                </div>                     
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

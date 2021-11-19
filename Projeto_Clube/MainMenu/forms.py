@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Cliente, Pessoa, Reserva, Colaborador
+from .models import Cliente, Pessoa, Reserva, Colaborador, Dependente
 
 class ClienteForm(forms.ModelForm):
 
@@ -40,3 +40,16 @@ class ColaboradorForm(forms.ModelForm):
     class Meta:
         model = Colaborador
         fields = ('idPessoa', 'permissao')
+        
+class DependenteForm(forms.ModelForm):
+    
+    class Meta:
+        model = Dependente
+        fields = [
+            'idCliente',
+            'nome',
+            'rg',
+            'parentesco',
+            'datanascimento',
+            'foto',
+        ]

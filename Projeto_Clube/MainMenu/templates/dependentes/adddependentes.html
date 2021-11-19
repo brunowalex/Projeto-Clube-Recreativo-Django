@@ -4,12 +4,11 @@
 
 {% block content%}
 <div class="offset-1 col-10 list-div">
-    <h1>Adicione a nova reserva: </h1>
+    <h1>Adicione o novo cliente: </h1>
     <div  class="body-color-background list-div-addpessoa">
         <form method="POST">
             {% csrf_token %}
-            {{form.as_p}}    
-            
+            {{ form.as_p }}
             <input type="submit" class="btn btn-success" value="Cadastrar">
         </form>
     </div>
